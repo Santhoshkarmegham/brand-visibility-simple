@@ -13,5 +13,6 @@ test:
 lint:
 	ruff check src tests scripts
 clean:
-	find . -type d -name __pycache__ -prune -exec rm -rf {} +
-	find . -type f -name '*.pyc' -delete
+    -Remove-Item -Recurse -Force __pycache__ -ErrorAction SilentlyContinue
+    -Get-ChildItem -Recurse -Directory -Filter __pycache__ | Remove-Item -Recurse -Force
+    -Get-ChildItem -Recurse -File -Filter *.pyc | Remove-Item -Force
