@@ -6,4 +6,4 @@ textColor = "#172033"
 font = "sans serif"
 [server]
 headless = true
-enableCORS = false
+enableCORS = true

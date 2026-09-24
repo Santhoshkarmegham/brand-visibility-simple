@@ -1,3 +1,5 @@
+> Historical setup notes. Use the root README for current commands and cleaning rules. Missing ratings and ranks now remain unknown.
+
 # Brand Visibility Intelligence
 
 A production-style e-commerce analytics project implementing API extraction, dirty-CSV integration, ETL, SQLite serving, 30 EDA questions and a six-tab Streamlit dashboard.

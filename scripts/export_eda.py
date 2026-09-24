@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from brand_visibility.analytics.eda import answer_eda_questions
 from brand_visibility.config import settings
 from brand_visibility.data.database import query_products

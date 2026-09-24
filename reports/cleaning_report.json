@@ -1,8 +1,125 @@
 {
-  "input_rows": 180,
+  "input_rows": 1320,
   "input_columns": 13,
-  "duplicate_rows_removed": 0,
-  "output_rows": 180,
-  "price_cap_99th_percentile": 1226.17,
-  "remaining_missing_values": 0
+  "input_profiles": [
+    {
+      "rows": 1320,
+      "columns": 7,
+      "dtypes": {
+        "keyword": "str",
+        "title": "str",
+        "price": "str",
+        "rating": "float64",
+        "reviews": "str",
+        "platform": "str",
+        "delivery": "str"
+      },
+      "missing_counts": {
+        "keyword": 0,
+        "title": 0,
+        "price": 126,
+        "rating": 131,
+        "reviews": 0,
+        "platform": 0,
+        "delivery": 0
+      },
+      "missing_percent": {
+        "keyword": 0.0,
+        "title": 0.0,
+        "price": 9.55,
+        "rating": 9.92,
+        "reviews": 0.0,
+        "platform": 0.0,
+        "delivery": 0.0
+      }
+    }
+  ],
+  "exact_duplicate_rows": 34,
+  "numeric_text_columns": [
+    "price",
+    "raw_price",
+    "reviews",
+    "position"
+  ],
+  "title_noise_rows": 136,
+  "categorical_values_before": {
+    "platform": [
+      "AMAZON",
+      "CROMA",
+      "FLIPKART",
+      "RELIANCE DIGITAL",
+      "amazon",
+      "croma",
+      "flipkart",
+      "reliance digital"
+    ],
+    "delivery": [
+      "2 Days",
+      "5 Days",
+      "Free Delivery"
+    ]
+  },
+  "invalid_numeric_text": {
+    "price": 66,
+    "raw_price": 0,
+    "rating": 0,
+    "reviews": 26,
+    "position": 0
+  },
+  "non_positive_prices": 26,
+  "invalid_ratings": 0,
+  "invalid_reviews": 0,
+  "invalid_positions": 0,
+  "rows_removed_missing_title_or_price": 0,
+  "original_price_below_sale_price": 0,
+  "duplicate_rows_removed": 94,
+  "price_distribution_before_cap": {
+    "count": 1226.0,
+    "mean": 33543.5,
+    "std": 53882.63,
+    "min": 509.0,
+    "25%": 14169.75,
+    "50%": 24365.0,
+    "75%": 36045.0,
+    "max": 498050.0
+  },
+  "outliers_capped": 13,
+  "output_rows": 1226,
+  "price_cap_99th_percentile": 383160.0,
+  "price_values_imputed": 207,
+  "remaining_missing_values": {
+    "price": 0,
+    "raw_price": 1226,
+    "rating": 121,
+    "reviews": 20,
+    "position": 1226
+  },
+  "output_dtypes": {
+    "keyword": "string",
+    "title": "str",
+    "price": "float64",
+    "raw_price": "float64",
+    "rating": "float64",
+    "reviews": "Int64",
+    "platform": "string",
+    "position": "Int64",
+    "delivery": "string",
+    "link": "object",
+    "thumbnail": "object",
+    "product_id": "object",
+    "source": "string",
+    "price_imputed": "bool",
+    "discount_pct": "float64",
+    "price_before_cap": "float64",
+    "brand": "str",
+    "visibility_score": "float64",
+    "top_10": "Int64",
+    "price_range": "category",
+    "rating_range": "category"
+  },
+  "sources": {
+    "csv": 1226
+  },
+  "ranked_rows": 0,
+  "discount_known_rows": 0
 }

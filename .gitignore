@@ -13,3 +13,7 @@ data/database/*.db
 dist/
 build/
 *.egg-info/
+
+.env.*
+!.env.example
+.streamlit/secrets.toml

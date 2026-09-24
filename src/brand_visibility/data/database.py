@@ -6,7 +6,6 @@ from typing import Any
 
 import pandas as pd
 
-
 TABLE = "products"
 
 
@@ -47,7 +46,10 @@ def query_products(db_path: str | Path, filters: dict[str, Any] | None = None, s
         params.append(f"%{search.strip().lower()}%")
     sql = f"SELECT * FROM {TABLE} WHERE {' AND '.join(clauses)}"
     with connect(db_path) as conn:
-        return pd.read_sql_query(sql, conn, params=params)
+        result = pd.read_sql_query(sql, conn, params=params)
+    for column in ["price", "raw_price", "rating", "reviews", "position", "discount_pct", "visibility_score", "top_10"]:
+        result[column] = pd.to_numeric(result[column], errors="coerce")
+    return result
 
 
 def filter_options(db_path: str | Path) -> dict[str, list]:

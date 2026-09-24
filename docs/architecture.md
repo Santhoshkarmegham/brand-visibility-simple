@@ -1,21 +1,16 @@
 # Architecture
 
-```text
-CSV source ─┐
-            ├─> extraction/alignment ─> cleaning/features ─> processed CSV
-SerpAPI ────┘                                  │
-                                              └─> SQLite ─> SQL filters ─> Streamlit
-                                                            └─> EDA/report export
-```
+`app.py` -> six-tab Streamlit dashboard -> parameterized SQLite queries.
 
-## Boundaries
+`pipeline.py` or the app's Load data panel -> CSV / SerpAPI -> align and concatenate -> clean and engineer -> SQLite + clean CSV + reports.
 
-- `brand_visibility.data`: I/O, schema alignment, cleaning, features and persistence.
-- `brand_visibility.analytics`: reusable analysis and insight functions with no UI dependency.
-- `brand_visibility.dashboard`: Streamlit and Plotly presentation layer.
-- `brand_visibility.config`: environment settings and filesystem paths.
-- `brand_visibility.pipeline`: orchestration; detailed behavior stays in focused modules.
-- `scripts`: thin operational entry points.
-- `tests`: automated checks separate from application code.
+- `data/extract.py`: authenticated Google Shopping requests; safe errors; excludes installment offers.
+- `data/transform.py`: shared cleaning rules and provenance/coverage diagnostics.
+- `data/database.py`: SQLite persistence and SQL filters. SQL NULL becomes numeric NaN after reads.
+- `analytics/eda.py`: all 30 analyses and descriptive business insights.
+- `analytics/reporting.py`: 30 cleaning answers, 30 EDA answers and report narrative.
+- `dashboard/app.py`: six tabs, CSV/API loading, observed coverage, SQL-backed controls and download.
 
-The dashboard reads the serving database and never performs live API calls. Ingestion failures therefore do not make the analytical UI unavailable.
+Absent observations remain missing. Loading demo data is explicit. API requests happen only on load; filter changes do not call the API. All tabs share the current local database. This is a local single-user application, not a multi-tenant service.
+
+The checked-in deliverables are a dated snapshot. Runtime changes do not automatically rewrite that snapshot or its PDF. Legacy Word guides and Windows documentation predate this version; use the root README and task-completion checklist as the current instructions.

@@ -5,7 +5,6 @@ from pathlib import Path
 
 import pandas as pd
 
-
 BRANDS = {
     "laptop": ["Apple", "Dell", "HP", "Lenovo", "Asus", "Acer"],
     "phone": ["Apple", "Samsung", "Google", "OnePlus", "Motorola", "Xiaomi"],
