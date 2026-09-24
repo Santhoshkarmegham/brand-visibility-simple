@@ -1,79 +1,42 @@
-# Brand Visibility Intelligence
+# Brand Visibility
 
-A production-style e-commerce analytics project implementing API extraction, dirty-CSV integration, ETL, SQLite serving, 30 EDA questions and a six-tab Streamlit dashboard.
+A simple Python dashboard for comparing product prices, ratings, and search visibility.
 
-## Repository structure
+## Run the app
 
-```text
-Brand/
-├── config/                      # Runtime configuration
-├── data/
-│   ├── raw/                     # Immutable source extracts
-│   ├── interim/                 # Transformation staging
-│   ├── processed/               # Clean analysis-ready exports
-│   └── database/                # SQLite serving database
-├── docs/                        # Architecture notes
-├── reports/                     # EDA and cleaning outputs
-│   └── figures/                 # Exported charts/screenshots
-├── scripts/                     # Operational entry points
-├── src/brand_visibility/
-│   ├── analytics/               # EDA and business insights
-│   ├── dashboard/               # Streamlit UI
-│   ├── data/                    # Extract, transform and persistence
-│   ├── config.py                # Central settings
-│   └── pipeline.py              # ETL orchestration
-├── tests/                       # Automated tests
-├── Makefile
-└── pyproject.toml               # Package and tool configuration
-```
-
-## Local setup
+Requires Python 3.10 or newer. From this folder:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-make install
-make pipeline
-make dashboard
+python -m pip install -r requirements.txt
+python -m streamlit run app.py
 ```
 
-The dashboard opens at `http://localhost:8501`. Without a CSV or API key, the pipeline creates deterministic demo data.
+On macOS or Linux, use `python3` if `python` is unavailable. You can optionally install into a virtual environment first.
 
-## Use a dirty CSV
+The app opens at http://localhost:8501 with sample data. No API key, database setup, or separate pipeline command is needed.
 
-```bash
-python -m brand_visibility.pipeline --csv /path/to/brand_dirty_dataset.csv
+## What you can do
+
+- Upload a CSV or explore the built-in sample data.
+- Filter by brand, platform, or keyword and search product names.
+- Compare product counts and average visibility by brand.
+- View prices, ratings, reviews, and rankings.
+- Download the filtered products as a CSV.
+
+## CSV format
+
+Use these column names. Include at least one valid value in each numeric column (`price`, `rating`, `reviews`, and `position`). Prices are treated as USD; ratings range from 0 to 5; positions start at 1.
+
+```csv
+title,keyword,price,rating,reviews,platform,position
+Apple Phone,phone,799,4.5,120,Amazon,1
+Samsung Phone,phone,699,4.3,95,Walmart,2
 ```
 
-## Combine CSV and live SerpAPI data
+The app cleans numeric text, fills missing numeric values with medians, removes duplicates, and caps extreme prices. Brand names are inferred from product titles. Visibility is `100 / position`.
 
-Copy `.env.example` to `.env`, supply `SERPAPI_KEY`, then run:
+## Code
 
-```bash
-python -m brand_visibility.pipeline \
-  --csv /path/to/brand_dirty_dataset.csv \
-  --api \
-  --keywords laptop phone headphones smartwatch
-```
+Start with `app.py`. It reuses two small modules in `src/brand_visibility/data/`: `sample_data.py` generates demo products and `transform.py` cleans data and calculates visibility.
 
-## EDA, tests and quality
-
-```bash
-make eda
-make test
-make lint
-```
-
-The EDA command writes all 30 answers to `reports/eda_answers.md`.
-
-## Cleaning decisions
-
-- Numeric strings are normalized safely; invalid values become missing.
-- Missing numeric values use keyword-level medians, then overall medians.
-- Unrated products remain because search visibility is still meaningful.
-- Non-positive prices/rankings and ratings outside 0-5 are invalid.
-- Prices are capped at the 99th percentile and the cap is recorded.
-- Duplicate identity is `keyword + title + platform + price`.
-- Visibility score is `100 / position`, making rank 1 equal to 100.
-
-See [docs/architecture.md](docs/architecture.md) for component boundaries and data flow.
+The original API pipeline, SQLite database, detailed dashboard, and reports remain available. See [advanced usage](docs/advanced-usage.md) for their setup.

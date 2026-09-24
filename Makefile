@@ -5,7 +5,9 @@ install:
 pipeline:
 	python -m brand_visibility.pipeline
 dashboard:
-	streamlit run src/brand_visibility/dashboard/app.py
+	python -m streamlit run app.py
+advanced-dashboard:
+	python -m streamlit run src/brand_visibility/dashboard/app.py
 eda:
 	python scripts/export_eda.py
 test:
@@ -13,6 +15,4 @@ test:
 lint:
 	ruff check src tests scripts
 clean:
-    -Remove-Item -Recurse -Force __pycache__ -ErrorAction SilentlyContinue
-    -Get-ChildItem -Recurse -Directory -Filter __pycache__ | Remove-Item -Recurse -Force
-    -Get-ChildItem -Recurse -File -Filter *.pyc | Remove-Item -Force
+	python -c "import pathlib, shutil; [shutil.rmtree(p) for p in pathlib.Path('.').rglob('__pycache__') if '.venv' not in p.parts]"
