@@ -17,7 +17,7 @@ The user requested completion against the attached dashboard brief and Details.t
 | Clean CSV and database | deliverables/ | Included, from available CSV |
 | Project PDF | output/pdf/brand_visibility_project_report.pdf | Rendered and visually reviewed |
 | Dashboard screenshots | deliverables/screenshots/ | Captured from actual running app |
-| GitHub | Santhoshkarmegham/brand-visibility-simple | Existing private repository updated |
+| GitHub | Santhoshkarmegham/brand-visibility-simple | Local changes committed; upload pending explicit approval |
 
 ## Findings
 
@@ -30,3 +30,7 @@ The user requested completion against the attached dashboard brief and Details.t
 - Run real API + CSV extraction, verify results, and regenerate the submission snapshot and report.
 
 No live API success is claimed. No course-portal submission, evaluation booking, or public deployment was performed.
+
+## Publication status
+
+The local commit is ready. Automatic approval review blocked uploading the local-file-derived dataset, database, report and screenshots to GitHub until the user explicitly approves those files and that destination. GitHub Actions has not run for these changes.
