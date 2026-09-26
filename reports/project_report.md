@@ -23,10 +23,10 @@ CSV and Google Shopping results -> normalize and concatenate -> clean and engine
 Currency is unspecified unless established by the source. No cross-currency conversion is performed. Absent search ranks and original prices remain missing. Discount share uses only known discounts. Brands are inferred heuristically. Assortment count is not sales or market share. API extraction requires a user-provided key and is only live-verified when an actual request succeeds.
 
 ## Deliverables
-Source code and tests; cleaned_products.csv; SQLite database; six-tab app; 30 cleaning answers; 30 EDA answers; project report PDF; screenshots; GitHub repository.
+Source code and tests; cleaned_products.csv; SQLite database; six-tab app; 30 cleaning answers; 30 EDA answers; generated Markdown report.
 
 ## Reproduction
-Install requirements, run python -m streamlit run app.py. Use the Load data panel for CSV/API input. For a batch run install the package and run python -m brand_visibility.pipeline --csv PATH [--api --keywords laptop phone].
+Set the local CSV path, API key, currency and market in .env. Run python pipeline.py to combine both sources, then python -m streamlit run app.py.
 
 ## API reference
 https://serpapi.com/google-shopping-api

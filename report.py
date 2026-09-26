@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from brand_visibility.analytics.eda import answer_eda_questions, business_insights
+from eda import answer_eda_questions, business_insights
 
 
 def cleaning_answers(df, r):
@@ -69,7 +69,7 @@ def export_reports(df, report, folder: Path):
               "## Results\n" + '\n'.join('- ' + insight for insight in business_insights(df)),
               "## Data quality\n" + f"{report['input_rows']} input rows; {report['duplicate_rows_removed']} duplicate offers removed; {report['price_values_imputed']} retained prices imputed; {report['outliers_capped']} prices capped at {report['price_cap_99th_percentile']}.",
               "## Limitations\nCurrency is unspecified unless established by the source. No cross-currency conversion is performed. Absent search ranks and original prices remain missing. Discount share uses only known discounts. Brands are inferred heuristically. Assortment count is not sales or market share. API extraction requires a user-provided key and is only live-verified when an actual request succeeds.",
-              "## Deliverables\nSource code and tests; cleaned_products.csv; SQLite database; six-tab app; 30 cleaning answers; 30 EDA answers; project report PDF; screenshots; GitHub repository.",
-              "## Reproduction\nInstall requirements, run python -m streamlit run app.py. Use the Load data panel for CSV/API input. For a batch run install the package and run python -m brand_visibility.pipeline --csv PATH [--api --keywords laptop phone].",
+              "## Deliverables\nSource code and tests; cleaned_products.csv; SQLite database; six-tab app; 30 cleaning answers; 30 EDA answers; generated Markdown report.",
+              "## Reproduction\nSet the local CSV path, API key, currency and market in .env. Run python pipeline.py to combine both sources, then python -m streamlit run app.py.",
               "## API reference\nhttps://serpapi.com/google-shopping-api"]
     (folder / 'project_report.md').write_text('\n\n'.join(blocks))

@@ -4,8 +4,6 @@ __pycache__/
 *.pyc
 data/raw/*
 !data/raw/.gitkeep
-data/interim/*
-!data/interim/.gitkeep
 data/processed/*.csv
 data/database/*.db
 .pytest_cache/
@@ -17,3 +15,5 @@ build/
 .env.*
 !.env.example
 .streamlit/secrets.toml
+
+data/source_products.csv

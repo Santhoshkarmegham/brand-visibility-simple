@@ -45,7 +45,7 @@ def align_columns(frame: pd.DataFrame, source_name: str) -> pd.DataFrame:
     if df.columns.duplicated().any():
         raise ValueError("Duplicate column names after normalization")
     df = df.rename(columns={k: v for k, v in ALIASES.items() if k in df.columns and v not in df.columns})
-    if "platform" not in df and "source" in df:
+    if "platform" not in df and "source" in df and not df["source"].isin(["csv", "serpapi", "demo"]).all():
         df = df.rename(columns={"source": "platform"})
     if "source" not in df:
         df["source"] = frame.attrs.get("source", source_name)
@@ -105,7 +105,14 @@ def clean_and_engineer(frames: Iterable[pd.DataFrame]) -> tuple[pd.DataFrame, di
     df["discount_pct"] = ((df.raw_price - df.price) / df.raw_price * 100).round(2)
     df.loc[df.price_imputed, "discount_pct"] = np.nan
     before = len(df)
-    df = df.drop_duplicates(subset=["keyword", "title", "platform", "price"], keep="first").copy()
+    identity = ["keyword", "title", "platform", "price"]
+    # Fill gaps only between the same offer, never between unrelated CSV/API products.
+    observed = ["position", "rating", "reviews", "raw_price", "discount_pct", "link", "thumbnail"]
+    df[observed] = df.groupby(identity, dropna=False)[observed].transform("first")
+    df["source"] = df.groupby(identity, dropna=False)["source"].transform(
+        lambda values: "+".join(sorted(set(values.astype(str))))
+    )
+    df = df.drop_duplicates(subset=identity, keep="first").copy()
     report["duplicate_rows_removed"] = before - len(df)
     cap = float(df.price.quantile(.99))
     report["price_distribution_before_cap"] = df.price.describe().round(2).to_dict()
